@@ -7,7 +7,7 @@ use App\Enums\FormulaOperation;
 
 class FormulaApplier
 {
-    public function apply(float $bonus, FormulaDTO $formula): float
+    public function apply(FormulaDTO $formula, float $bonus): float
     {
         return match ($formula->operation) {
             FormulaOperation::MULTIPLY->value => $bonus * $formula->value,

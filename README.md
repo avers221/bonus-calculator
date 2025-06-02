@@ -8,20 +8,20 @@
 
 1. Внутри папки с проектом необходимо собрать контейрены, выполнив следующую команду. 
 
-```shell
-docker compose up -d
-```
+    ```shell
+    docker compose up -d
+    ```
 
 2. После сборки проекта необходимо установить зависимости:
 
-```shell
-docker compose exec -T php composer update 
-```
+    ```shell
+    docker compose exec -T php composer update 
+    ```
 3. Далее выполним миграции и запустим сидеры
 
-```shell
-docker compose exec -T php php artisan migrate --seed
-```
+    ```shell
+    docker compose exec -T php php artisan migrate --seed
+    ```
 
 ### Проект предварительной настройки не требует
 

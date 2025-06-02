@@ -6,7 +6,6 @@ use App\DTO\CalculateBonusDTO;
 use App\DTO\CalculatedResultDTO;
 use App\DTO\Calculator\ConditionDTO;
 use App\DTO\Calculator\FormulaDTO;
-use App\Enums\FormulaOperation;
 use App\Repositories\BonusRuleRepository;
 use DateTime;
 
@@ -42,12 +41,20 @@ class BonusCalculatorService
         // Применение правил по статусу клиента
         foreach ($rules as $rule) {
             // Проверяем, применимо ли правило для текущего клиента
-            if (!$this->conditionEvaluator->passes(ConditionDTO::fromModel($rule->condition), $context)) {
+            if (
+                !$this->conditionEvaluator->passes(
+                ConditionDTO::fromModel($rule->condition),
+                $context,
+            )
+            ) {
                 continue;
             }
 
             // Применяем формулу, указанную в правиле
-            $calculatedBonus = $this->formulaApplier->apply($calculatedBonus, FormulaDTO::fromModel($rule->formula));
+            $calculatedBonus = $this->formulaApplier->apply(
+                FormulaDTO::fromModel($rule->formula),
+                $calculatedBonus,
+            );
 
             $appliedRules[] = ['rule' => $rule->slug, 'bonus' => $calculatedBonus - $prevBonus];
             $prevBonus = $calculatedBonus;
