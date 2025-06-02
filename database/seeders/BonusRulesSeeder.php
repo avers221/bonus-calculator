@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\ConditionOperation;
-use App\Enums\CostumerStatus;
+use App\Enums\CustomerStatus;
 use App\Enums\FormulaOperation;
 use App\Enums\WorkdayStatus;
 use App\Models\BonusRule;
@@ -78,7 +78,7 @@ class BonusRulesSeeder extends Seeder
                 'condition' => [
                     'field' => 'customer_status',
                     'operator' => ConditionOperation::EQUAL->value,
-                    'value' => CostumerStatus::VIP->value,
+                    'value' => CustomerStatus::VIP->value,
                 ],
                 'formula' => [
                     'operation' => FormulaOperation::MULTIPLY->value,

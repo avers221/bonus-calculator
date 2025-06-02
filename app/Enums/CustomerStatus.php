@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CostumerStatus: string
+enum CustomerStatus: string
 {
     case REGULAR = 'regular';
     case VIP = 'vip';
