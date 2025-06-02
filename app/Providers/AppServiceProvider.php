@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app->bind(
+            \App\Services\Holiday\HolidayChecker::class,
+            \App\Services\Holiday\IsDaysOffHolidayChecker::class,
+        );
     }
 }
