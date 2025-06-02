@@ -30,7 +30,6 @@ services:
       context: ./docker/containers/php
     volumes:
       - ./:/var/www/html/
-      - ./docker/containers/php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     depends_on:
       - redis
       - database
