@@ -1,0 +1,54 @@
+services:
+  database:
+    image: postgres:16
+    container_name: ${APP_NAME}-db
+    ports:
+      - ${DB_PORT:-5432}:5432
+    environment:
+      PGPASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - ./docker/volumes/pgsql:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - '-q'
+        - '-d'
+        - '${DB_DATABASE}'
+        - '-U'
+        - '${DB_USERNAME}'
+      retries: 3
+      timeout: 5s
+
+
+  php:
+    container_name: ${APP_NAME}-php
+    build:
+      context: ./docker/containers/php
+    volumes:
+      - ./:/var/www/html/
+      - ./docker/containers/php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    depends_on:
+      - redis
+      - database
+
+
+  redis:
+    container_name: ${APP_NAME}-redis
+    image: redis:alpine
+    command: redis-server
+
+  nginx:
+    container_name: ${APP_NAME}-nginx
+    image: nginx:stable-alpine
+    ports:
+      - ${APP_PORT:-80}:80
+    volumes:
+      - ./:/var/www/html/
+      - ./docker/containers/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - database
+      - php
