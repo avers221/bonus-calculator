@@ -48,8 +48,10 @@
 ##### В отправлять следующие хедеры
 
 ```
+'Host: <calculated when request is sent>'
 'Accept: application/json' 
 'Content-Type: application/json'
+'Content-Length: <calculated when request is sent>'
 ```
 
 ##### В теле запроса необходимо указать:
