@@ -7,14 +7,17 @@ use App\DTO\CalculatedResultDTO;
 use App\DTO\Calculator\FormulaDTO;
 use App\Enums\ConditionOperation;
 use App\Enums\FormulaOperation;
-use App\Models\BonusRule;
 use App\Models\Condition;
+use App\Repositories\BonusRuleRepository;
 use DateTime;
 use isDayOff\Client\IsDayOff;
 
 class BonusCalculatorService
 {
-    public function __construct(private readonly IsDayOff $dayOff)
+    public function __construct(
+        private readonly IsDayOff $dayOff,
+        private readonly BonusRuleRepository $ruleRepository,
+    )
     {
     }
 
@@ -26,7 +29,7 @@ class BonusCalculatorService
         $date = new DateTime($dto->date);
 
         // Загружаем правила из базы
-        $rules = BonusRule::query()->orderBy('priority')->get();
+        $rules = $this->ruleRepository->getAllOrdered();
 
         $calculatedBonus = $dto->transaction_amount;
         $fromOldStepBonus = 0;
