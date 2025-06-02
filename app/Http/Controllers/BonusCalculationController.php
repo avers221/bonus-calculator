@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DTO\CalculateBonusDTO;
 use App\Http\Requests\BonusCalculationRequest;
-use App\Services\BonusCalculatorService;
-use DateTime;
-use isDayOff\Client\IsDayOff;
+use App\Services\BonusCalculator\BonusCalculatorService;
 
 class BonusCalculationController extends Controller
 {
