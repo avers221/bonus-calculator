@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CostumerStatus;
+use App\Enums\CustomerStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,7 +26,7 @@ class BonusCalculationRequest extends FormRequest
         return [
             'transaction_amount' => 'required|numeric|min:1',
             'timestamp' => 'required|date',
-            'customer_status' => ['required', Rule::enum(CostumerStatus::class)],
+            'customer_status' => ['required', Rule::enum(CustomerStatus::class)],
         ];
     }
 }
