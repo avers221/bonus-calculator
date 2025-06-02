@@ -45,6 +45,13 @@
 
 #### `POST /calculate-bonus`
 
+##### В отправлять следующие хедеры
+
+```
+'Accept: application/json' 
+'Content-Type: application/json'
+```
+
 ##### В теле запроса необходимо указать:
 
 ```
